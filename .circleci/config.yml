@@ -2,6 +2,8 @@ version: 2.1
 
 orbs:
   base: codacy/base@10.1.3
+  codacy: codacy/base@10.1.3
+
 
 jobs:
   build:
