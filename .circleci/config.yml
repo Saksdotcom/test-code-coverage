@@ -1,7 +1,7 @@
 version: 2.1
 
 orbs:
-  codacy: codacy/codacy-analysis-orb@1.1.1
+  codacy: codacy/codacy@1.0.0
 
 jobs:
   build:
