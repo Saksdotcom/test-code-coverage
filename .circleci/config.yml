@@ -1,21 +1,25 @@
 version: 2.1
 
 orbs:
-  codacy: codacy/codacy@1.0.0
+  base: codacy/base@10.1.3
 
 jobs:
   build:
     docker:
-      - image: maven:3.6-jdk-11
+      - image: circleci/openjdk:11-jdk
+    working_directory: ~/repo
     steps:
       - checkout
-      - run: mvn clean install
-      - codacy/upload:
-          coverage_report: target/site/jacoco/jacoco.xml
-          api_token: t2xwSWdp3BmLbXuahtSn
+      - run: mvn clean install -DskipTests=true -Dmaven.javadoc.skip=true -B -V
+      - run:
+          name: Generate Code Coverage Report
+          command: mvn clean org.jacoco:jacoco-maven-plugin:prepare-agent test org.jacoco:jacoco-maven-plugin:report -Dmaven.test.failure.ignore=true
+      - codacy/upload-coverage:
+          coverage_report_path: target/site/jacoco/jacoco.xml
+          project_token: ef6922433afd4f8d87878f7b295992f6
 
 workflows:
   version: 2
-  build_and_analyze:
+  build:
     jobs:
       - build
