@@ -1,7 +1,25 @@
 version: 2.1
+
+# orbs:
+#   codacy: codacy/codacy@1.1.2
+
 jobs:
   build:
     docker:
-      - image: alpine
+      - image: circleci/openjdk:11-jdk-buster
     steps:
-      - run: echo "Hello, world"
+      - checkout
+      - run: mvn -B clean compile test
+      - run: mvn -B jacoco:report
+      - run:
+          name: Upload coverage report to Codacy
+          command: bash <(curl -Ls https://coverage.codacy.com/get.sh) report -r target/site/jacoco/jacoco.xml -t 4046e2c81781480f92e3b01e950036f7
+
+workflows:
+  version: 2
+  build-and-test:
+    jobs:
+      - build:
+          filters:
+            branches:
+              only: main
