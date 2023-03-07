@@ -13,7 +13,7 @@ jobs:
       - run: mvn -B jacoco:report
       - run:
           name: Upload coverage report to Codacy
-          command: bash <(curl -Ls https://coverage.codacy.com/get.sh) report -r target/site/jacoco/jacoco.xml -t $CODACY_PROJECT_TOKEN
+          command: bash <(curl -Ls https://coverage.codacy.com/get.sh) report -r target/site/jacoco/jacoco.xml -t 4046e2c81781480f92e3b01e950036f7
 
 workflows:
   version: 2
@@ -23,4 +23,3 @@ workflows:
           filters:
             branches:
               only: main
-
