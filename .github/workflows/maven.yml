@@ -27,4 +27,4 @@ jobs:
     - name: Upload coverage report to Codacy
       run: bash <(curl -Ls https://coverage.codacy.com/get.sh) report -r target/site/jacoco/jacoco.xml -t 4046e2c81781480f92e3b01e950036f7
     env:
-          CODACY_PROJECT_TOKEN: 4046e2c81781480f92e3b01e950036f7
+          CODACY_PROJECT_TOKEN: 4046e2c81781480f92e3b01e950036f7 
